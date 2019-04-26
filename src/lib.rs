@@ -1,5 +1,12 @@
 //! Types and methods for a simple, free-space bitmap data structure.
 //!
+//! NOTE: The `BitMap` type is designed to be low-level, i.e. it is created from a mutable raw
+//! pointer and a length. It is meant, for example, to create a bitmap of free pages in DRAM for a
+//! page allocator and NOT (as in the examples and test cases) to be created from an owned resource
+//! such as an array, `Vec`, etc. as this violates Rust's rules about ownership and borrowing,
+//! namely that a resource has a single owner (i.e. a binding) and that there is at most one
+//! mutable reference to that resource at any given time. Please use this type with caution.
+//!
 //! # Examples
 //! ```
 //! use bitmap::{BitMap, BitStatus};
@@ -35,7 +42,7 @@ pub struct BitMap<'a> {
 }
 
 impl<'a> BitMap<'a> {
-    /// Create a new `BitMap` with the given raw pointer and byte-length.
+    /// Create a new `BitMap` with the given raw pointer and length (in bytes).
     pub unsafe fn from_raw_parts(start: *mut u8, byte_length: usize) -> BitMap<'a> {
         BitMap {
             start,
