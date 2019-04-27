@@ -1,6 +1,6 @@
 [package]
 name = "bitmap"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["krepl <36075613+krepl@users.noreply.github.com>"]
 edition = "2018"
 
